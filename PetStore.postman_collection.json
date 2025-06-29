@@ -1,0 +1,127 @@
+{
+	"info": {
+		"_postman_id": "8bb250c6-b28c-4cbc-bc53-aca3131e8f27",
+		"name": "PetStore_МК Групп",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31148181"
+	},
+	"item": [
+		{
+			"name": "Создание нового питомца",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"    const response = pm.response.json();\r",
+							"        pm.environment.set(\"petId\", response.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 123,\r\n  \"name\": \"Владлен\",\r\n  \"photoUrls\": [\"photo.jpg\"],\r\n  \"status\": \"available\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "First_get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let pet = pm.response.json();\r",
+							"pet.status = \"sold\";\r",
+							"\r",
+							"pm.sendRequest({\r",
+							"  url: 'https://petstore.swagger.io/v2/pet',\r",
+							"  method: 'PUT',\r",
+							"  header: { 'Content-Type': 'application/json' },\r",
+							"  body: { mode: 'raw', raw: JSON.stringify(pet) }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/{{petId}}",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"{{petId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
